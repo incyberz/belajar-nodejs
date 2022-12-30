@@ -1,7 +1,29 @@
 <div class="container">
   <div class="row my-4">
     <div class="col-lg-12">
+      <!-- tampil pesan simpan -->
+      <% if(message){ %>
+      <div
+        class="alert alert-dismissible fade show alert-<%= message.type %>"
+        role="alert"
+      >
+        <button
+          class="btn-close"
+          type="button"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+        <strong><%= message.message %></strong>
+      </div>
+      <% } %>
+
+      <!-- tabel tampil data -->
       <div class="table-responsive">
+        <% if(users == '') { %>
+        <h1 class="text-center text-secondary mt-5">
+          No users found in the database
+        </h1>
+        <% } else { %>
         <table class="table table-striped">
           <thead>
             <tr class="table-dark text-center">
@@ -14,23 +36,32 @@
             </tr>
           </thead>
           <tbody>
+            <% users.forEach((row,index)=>{ %>
             <tr class="table-dark text-center">
-              <td>1</td>
-              <td><img src="" alt="" /></td>
-              <td>Iin Sholihin</td>
-              <td>incyberz@gmail.com</td>
-              <td>08123456789</td>
+              <td><%=index%></td>
               <td>
-                <a href="#" class="text-success"
+                <img src="<%=row.image%>" alt="" width="100px" />
+              </td>
+              <td><%=row.name%></td>
+              <td><%=row.email%></td>
+              <td><%=row.phone%></td>
+              <td>
+                <a href="/edit/<%=row._id%>" class="text-success"
                   ><i class="fas fa-edit fa-lg mx-1"></i
                 ></a>
-                <a href="#" class="text-danger"
+                <a
+                  href="/delete/<%=row._id%>"
+                  class="text-danger"
+                  onclick="return confirm('Yakin mau menghapus user ini?')"
                   ><i class="fas fa-trash fa-lg mx-1"></i
                 ></a>
               </td>
             </tr>
+
+            <% }) %>
           </tbody>
         </table>
+        <% } %>
       </div>
     </div>
   </div>

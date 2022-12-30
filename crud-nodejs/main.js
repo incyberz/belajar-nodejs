@@ -58,6 +58,8 @@ app.set("view engine", "ejs");
 // ==============================================
 app.use("", require("./routes/routes"));
 
+app.use(express.static("uploads"));
+
 app.listen(PORT, () => {
   console.log(`Server startd at http://localhost:${PORT}`);
 });
